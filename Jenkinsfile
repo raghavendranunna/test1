@@ -1,17 +1,43 @@
+// Jenkinsfile-BasicInput
+
+// ----------------------------------------------------------------------
+
+// Basic Input step - asks user: Should I Deploy? Proceed or Abort
+
+// ----------------------------------------------------------------------
+
 pipeline {
-    git url: 'https://github.com/jenkinsci/pipeline-examples'
 
-    // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
-    def server = Artifactory.server "SERVER_ID"
+   agent any
 
-    // Read the upload spec and upload files to Artifactory.
-    def downloadSpec =
-            '''{
-            "files": [
-                {
-                    "pattern": "libs-snapshot-local/*.zip",
-                    "target": "dependencies/",
-                    "props": "p1=v1;p2=v2"
-                }
-            ]
-        }
+   stages {
+
+      stage('Deploy') {
+
+         // Using 'agent none' so that the input step doesn't tie up an
+
+         // executor waiting for input, instead it will use a "light 
+
+         // weight" process on the master
+
+         agent none
+
+         steps {
+
+            // Wrap the input step in a timeout so that Jenkins won't
+
+            // be left waiting for input forever...
+
+            timeout(time: 5, unit: 'MINUTES') {
+
+               input 'Should I Deploy?'
+
+            }
+
+         }
+
+      }
+
+   }
+
+}
