@@ -1,5 +1,5 @@
 node {
-def mvnHome = tool 'Maven3'
+def mvnHome = tool 'Maven'
 
 stage ('Checkout') {
 
