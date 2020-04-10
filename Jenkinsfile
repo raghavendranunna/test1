@@ -1,5 +1,5 @@
 pipeline {
-    git url: 'https://github.com/jfrogdev/project-examples.git'
+    git url: 'https://github.com/jenkinsci/pipeline-examples'
 
     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
     def server = Artifactory.server "SERVER_ID"
