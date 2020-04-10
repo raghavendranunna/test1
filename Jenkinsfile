@@ -18,24 +18,7 @@ sh "${mvnHome}/bin/mvn sonar:sonar -f MyWebApp/pom.xml"
 }
 
 
-    stage ('Nexus upload') 
-    {
-        nexusArtifactUploader(
-        nexusVersion: 'nexus3',
-        protocol: 'http',
-        nexusUrl: 'ec2-18-223-182-14.us-east-2.compute.amazonaws.com:8081',
-        groupId: 'myGroupId',
-        version: '1.0-SNAPSHOT',
-        repository: 'maven-snapshots',
-        credentialsId: '2c293828-9509-49b4-a6e7-77f3ceae7b39',
-        artifacts: [
-            [artifactId: 'MyWebApp',
-             classifier: '',
-             file: 'MyWebApp/target/MyWebApp.war',
-             type: 'war']
-        ]
-     )
-    }
+    
 
 
 stage ('DEV Deploy') {
